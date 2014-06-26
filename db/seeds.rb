@@ -434,7 +434,7 @@ functional_dependencies.each do |puppetclass_name, params|
       raise "missing puppet class #{puppetclass_name}"
   params.each do |param_key, default_value|
     param = puppetclass.class_params.find_by_key(param_key) or
-        raise "missing param #{param} in #{puppetclass_name}"
+        raise "missing param #{param_key} in #{puppetclass_name}"
     param.update_attributes! default_value: default_value
   end
 end
