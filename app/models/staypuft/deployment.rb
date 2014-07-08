@@ -88,6 +88,18 @@ module Staypuft
 
     extend AttributeParamStorage
 
+    # Helper method for looking up a Deployment based on a foreman task
+    def self.find_by_foreman_task(foreman_task)
+      # FIXME(mtaylor) There must be a better way than iterating over deployments
+      # to find a deployment based on a foreman task.
+      Deployment.all.each do | deployment |
+        if deployment.task == foreman_task
+          return deployment
+        end
+      end
+      nil
+    end
+
     # Returns a list of hosts that are currently being deployed.
     def in_progress_hosts(hostgroup)
       return in_progress? ? hostgroup.openstack_hosts : {}
