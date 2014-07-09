@@ -208,6 +208,10 @@ module Staypuft
       self.layout_name == LayoutName::HA
     end
 
+    def horizon_url
+      "http://#{ha? ? self.vips.get(:horizon) : self.ips.controller_ip}"
+    end
+
     private
 
     def update_layout
