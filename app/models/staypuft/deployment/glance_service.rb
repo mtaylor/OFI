@@ -81,5 +81,8 @@ module Staypuft
       ret_list
     end
 
+    def url
+      ha? 
+    end
   end
 end

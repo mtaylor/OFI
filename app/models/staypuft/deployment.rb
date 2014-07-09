@@ -188,7 +188,8 @@ module Staypuft
     end
 
     def deployed?
-      self.hosts.any?(&:open_stack_deployed?)
+      true
+      #self.hosts.any?(&:open_stack_deployed?)
     end
 
     def form_step_is_configuration?
