@@ -9,8 +9,11 @@ module Staypuft
 
     OTHER_ATTRS_LIST = :mode, :single_password
 
-    USER_SERVICES_PASSWORDS = :ceilometer_user, :cinder_user, :glance_user, :heat_user,
-        :heat_cfn_user, :keystone_user, :neutron_user, :nova_user, :swift_user
+    USER_SERVICES_PASSWORDS = :admin, :ceilometer_user, :cinder_user, :glance_user, :heat_user,
+        :heat_cfn_user, :keystone_user, :neutron_user, :nova_user, :swift_user, :amqp
+
+    DB_SERVICES_PASSWORDS = :cinder_db, :glance_db, :heat_db, :mysql_root, :keystone_db,
+        :neutron_db, :nova_db, :amqp_nssdb
 
     def self.param_scope
       'passwords'
@@ -77,6 +80,23 @@ module Staypuft
         usp[user] = single_mode? ? single_password : self.send(user) 
       end
       usp
+    end
+
+    def services_passwords(filter=nil)
+      case filter
+      when :user
+        list = USER_SERVICES_PASSWORDS
+      when :db
+        list = DB_SERVICES_PASSWORDS
+      else
+        list = PASSWORD_LIST
+      end
+
+      map = {}
+      list.each do |user|
+        map[user] = single_mode? ? single_password : self.send(user) 
+      end
+      map
     end
   end
 end
