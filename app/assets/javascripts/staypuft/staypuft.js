@@ -48,6 +48,7 @@ $(function () {
     $(this).siblings('.hidden_password, .shown_password').toggleClass('hide');
   });
 
+
   var duration = 150;
 
   showPasswords();

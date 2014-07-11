@@ -43,14 +43,25 @@
       </div>
     </div>
   <% elsif @deployment.in_progress? %>
+    <script>
+      // Polling for progress bar updates
+      var pollingInterval = 10000;
+      setTimeout(updateProgress, pollingInterval);
+
+      function updateProgress() {
+        var url = $("#deployment_progress_bar").attr("data-poll-url");
+        $.getScript(url);
+        setTimeout(updateProgress, pollingInterval);
+      }
+    </script>
+
     <div class="row">
       <div class="col-sm-12 text-center"><h3 class="text-muted"><%= _("Deploying") %></h3></div>
     </div>
     <div class="row">
-      <div class="col-sm-6 col-sm-offset-3 text-center" id="deployment_progress_bar">
+      <div class="col-sm-6 col-sm-offset-3 text-center" id="deployment_progress_bar" data-poll-url="<%= deployment_path(@deployment) %>">
         <%= render :partial => "deployment_progress_bar", :locals => { :deployment => @deployment } %>
       </div>
-      <%= link_to "refresh progressbar", deployment_path(@deployment), :remote => true %>
     </div>
     <div class="row">
       <div class="col-sm-12 text-center">
