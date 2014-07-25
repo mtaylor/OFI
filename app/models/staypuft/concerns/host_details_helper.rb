@@ -22,7 +22,7 @@ module Staypuft
         if self.facts_hash["interfaces"]
           self.facts_hash["interfaces"].split(",")
         else
-          nil
+          []
         end
       end
 

@@ -12,8 +12,23 @@
             <th class="ca">
               <%= tag :input, type: 'checkbox', class: 'check_all' %>
             </th>
-            <th><%= sort :name, :as => _('Name') %></th>
-            <th class="hidden-s hidden-xs"><%= sort :ip, :as => _('IP Address') %></th>
+            <th class="hidden-s hidden-xs">
+              <%= sort :name, :as => _('Name') %>
+            </th>
+            <th class="hidden-s hidden-xs">
+              <%= sort :cpus, :as => _('CPUs') %>
+              <div class='help-block metric-unit'>(cores)</div>
+            </th>
+            <th class="hidden-s hidden-xs">
+              <%= sort :mem, :as => _('Memory') %>
+              <div class='help-block metric-unit'>(GB)</div>
+            </th>
+            <th class="hidden-s hidden-xs">
+              <%= sort :interfaces, :as => _('NICs') %>
+            </th>
+            <th class="hidden-s hidden-xs">
+              <%= sort :arch, :as => _('Architecture') %>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +43,10 @@
               <td class="ellipsis">
                <%= host_label(host) %>
               </td>
-              <td class="hidden-s hidden-xs"><%= host.ip %></td>
+              <td class="hidden-s hidden-xs"><%= host.cpus %></td>
+              <td class="hidden-s hidden-xs"><%= host.mem %></td>
+              <td class="hidden-s hidden-xs"><%= host.interfaces.size %></td>
+              <td class="hidden-s hidden-xs"><%= host.arch %></td>
             </tr>
           <% end %>
         </tbody>
